@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "CatalogActivity."
+rootProject.name = "CatalogActivity"
 include(":app")
  
