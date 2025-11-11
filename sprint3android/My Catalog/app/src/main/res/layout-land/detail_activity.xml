@@ -1,63 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- Título -->
     <TextView
         android:id="@+id/tv_titulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="52dp"
         android:text="Título"
-        android:textSize="24sp"
+        android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="15dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:gravity="center"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Imagen circular -->
+
+    <!--Imagen -->
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/img_detalle"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="132dp"
+        android:layout_height="116dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="52dp"
         android:scaleType="centerCrop"
-        app:layout_constraintTop_toBottomOf="@id/tv_titulo"
-        android:layout_marginTop="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:src="@drawable/imagen"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_titulo"
         app:shapeAppearanceOverlay="@style/CircularImage" />
 
     <!-- Descripción -->
     <TextView
         android:id="@+id/tv_descripcion"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="343dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="20dp"
+        android:gravity="center_vertical"
         android:text="Descripción"
         android:textAlignment="center"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/img_detalle"
-        android:layout_marginTop="40dp"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="10dp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="10dp"/>
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/img_detalle"
+        app:layout_constraintTop_toTopOf="@id/img_detalle" />
 
     <!-- Botón Me gusta -->
     <Button
         android:id="@+id/btn_me_gusta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="116dp"
+        android:layout_marginBottom="76dp"
         android:text="Me gusta"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="25dp"
-        android:layout_marginBottom="25dp"/>
+        app:layout_constraintStart_toStartOf="@+id/tv_descripcion" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
