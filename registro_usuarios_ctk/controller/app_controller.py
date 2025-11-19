@@ -19,3 +19,6 @@ class AppController:
         usuarios = self.model.listar()
         self.view.actualizar_lista_usuarios(usuarios, self.seleccionar_usuario)
 
+    def seleccionar_usuario(self, indice):
+        usuario = self.model.obtener(indice)
+        self.view.mostrar_detalles_usuario(usuario)
