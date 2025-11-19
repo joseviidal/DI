@@ -1,3 +1,4 @@
+# view/main_view.py
 import customtkinter as ctk
 import tkinter
 
@@ -5,6 +6,12 @@ class MainView:
     def __init__(self, master):
         self.master = master
 
+        self.menubar = tkinter.Menu(master)
+        master.config(menu=self.menubar)
+        self.menu_archivo = tkinter.Menu(self.menubar, tearoff=0)
+        self.menubar.add_cascade(label="Archivo", menu=self.menu_archivo)
+
+        # Layout principal
         master.grid_columnconfigure(0, weight=1)
         master.grid_columnconfigure(1, weight=2)
 
@@ -42,7 +49,6 @@ class MainView:
         self.label_nombre.configure(text=f"Nombre: {usuario.nombre}")
         self.label_edad.configure(text=f"Edad: {usuario.edad}")
         self.label_genero.configure(text=f"Género: {usuario.genero}")
-
 
 class AddUserView:
     def __init__(self, master):
