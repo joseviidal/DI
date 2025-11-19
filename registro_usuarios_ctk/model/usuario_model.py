@@ -1,5 +1,4 @@
 import csv
-from pathlib import Path
 
 class Usuario:
     def __init__(self, nombre, edad, genero, avatar):
@@ -18,32 +17,10 @@ class GestorUsuarios:
         self._usuarios.append(Usuario("Carlitos Mendez", 35, "Masculino", "avatarCarlitosMendez.jpeg"))
 
     def listar(self):
-        return self._usuarios
+        return self.usuarios
 
     def obtener(self, indice):
-        return self._usuarios[indice]
+        return self.usuarios[indice]
 
-    def guardar_csv(self, ruta):
-        with open(ruta, "w", newline="", encoding="utf-8") as archivo:
-            writer = csv.writer(archivo)
-            writer.writerow(["nombre", "edad", "genero", "avatar"])
-
-            for u in self._usuarios:
-                writer.writerow([u.nombre, u.edad, u.genero, u.avatar])
-
-    def cargar_csv(self, ruta):
-        try:
-            with open(ruta, "r", encoding="utf-8") as archivo:
-                reader = csv.reader(archivo)
-                next(reader)
-
-                self._usuarios.clear()
-
-                for fila in reader:
-                    try:
-                        nombre, edad, genero, avatar = fila
-                        self._usuarios.append(Usuario(nombre, int(edad), genero, avatar))
-                    except:
-                        pass
-        except FileNotFoundError:
-            pass
+    def agregar_usuario(self, usuario):
+        self.usuarios.append(usuario)

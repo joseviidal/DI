@@ -1,53 +1,59 @@
-from view.main_view import AddUserView, MainView
-from model.usuario_model import Usuario, GestorUsuarios
 from tkinter import messagebox
+
+from model.usuario_model import GestorUsuarios, Usuario
+from view.main_view import MainView, AddUserView
 from pathlib import Path
-import customtkinter as ctk
 
 class AppController:
-    def __init__(self, master):
-        self.master = master
-        self.model = GestorUsuarios()
-        self.view = MainView(master)
-
+    def __init__(self, root):
+        self.root = root
         self.BASE_DIR = Path(__file__).resolve().parent.parent
         self.ASSETS_PATH = self.BASE_DIR / "assets"
 
         self.avatar_images = {}
 
+        self.modelo = GestorUsuarios()
+        self.vista = MainView(root)
+
         self.refrescar_lista_usuarios()
 
+        self.vista.boton_añadir.configure(command=self.abrir_ventana_añadir)
+
     def refrescar_lista_usuarios(self):
-        usuarios = self.model.listar()
-        self.view.actualizar_lista_usuarios(usuarios, self.seleccionar_usuario)
+        usuarios = self.modelo.listar()
+
+        self.vista.actualizar_lista_usuarios(
+            usuarios,
+            self.seleccionar_usuario
+        )
 
     def seleccionar_usuario(self, indice):
-        usuario = self.model.obtener(indice)
-        self.view.mostrar_detalles_usuario(usuario)
+        usuario = self.modelo.obtener(indice)
+        self.vista.mostrar_detalles_usuario(usuario)
 
     def abrir_ventana_añadir(self):
-        self.add_view = AddUserView(self.master)
-        self.add_view.guardar_button.configure(
-            command=lambda: self.añadir_usuario(self.add_view)
-        )
+        add_view = AddUserView(self.root, self.ASSETS_PATH)
+        add_view.guardar_button.configure(command=lambda: self.añadir_usuario(add_view))
 
     def añadir_usuario(self, add_view):
         datos = add_view.get_data()
-
         try:
+            nombre = datos["nombre"].strip()
             edad = int(datos["edad"])
-        except ValueError:
-            messagebox.showerror("Error", "La edad debe ser un número.")
-            return
+            genero = datos["genero"]
+            avatar = datos["avatar"]
 
-        nuevo = Usuario(
-            datos["nombre"],
-            edad,
-            datos["genero"],
-            datos["avatar"]
-        )
+            if not nombre:
+                raise ValueError("El nombre no puede estar vacío.")
+            if genero == "Seleccione un género":
+                raise ValueError("Debe seleccionar un género válido.")
+            if avatar == "Seleccione un avatar":
+                raise ValueError("Debe seleccionar un avatar válido.")
 
-        self.model._usuarios.append(nuevo)
-        self.refrescar_lista_usuarios()
-        add_view.window.destroy()
+            usuario = Usuario(nombre, edad, genero, avatar)
+            self.modelo.agregar_usuario(usuario)
+            self.refrescar_lista_usuarios()
+            add_view.window.destroy()
 
+        except ValueError as e:
+            messagebox.showerror("Error", str(e))
