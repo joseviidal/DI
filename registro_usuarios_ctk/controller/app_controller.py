@@ -1,7 +1,7 @@
 from tkinter import messagebox
 
 from model.usuario_model import GestorUsuarios, Usuario
-from view.main_view import MainView, AddUserView
+from view.main_view import MainView, NuevoUsuario
 from pathlib import Path
 
 class AppController:
@@ -19,6 +19,13 @@ class AppController:
 
         self.vista.boton_añadir.configure(command=self.abrir_ventana_añadir)
 
+        self.vista.menu_archivo.add_command(label="Guardar", command=self.guardar_usuarios)
+        self.vista.menu_archivo.add_command(label="Cargar", command=self.cargar_usuarios)
+
+        self.vista.menu_ayuda.add_command(label="Salir", command=self.root.quit)
+
+        self.cargar_usuarios()
+
     def refrescar_lista_usuarios(self):
         usuarios = self.modelo.listar()
 
@@ -32,7 +39,7 @@ class AppController:
         self.vista.mostrar_detalles_usuario(usuario)
 
     def abrir_ventana_añadir(self):
-        add_view = AddUserView(self.root, self.ASSETS_PATH)
+        add_view = NuevoUsuario(self.root, self.ASSETS_PATH)
         add_view.guardar_button.configure(command=lambda: self.añadir_usuario(add_view))
 
     def añadir_usuario(self, add_view):
@@ -57,3 +64,19 @@ class AppController:
 
         except ValueError as e:
             messagebox.showerror("Error", str(e))
+
+    def guardar_usuarios(self):
+        ruta_csv = self.BASE_DIR / "usuarios.csv"
+        try:
+            self.modelo.guardar_csv(ruta_csv)
+            messagebox.showinfo("Guardar", "Usuarios guardados correctamente.")
+        except Exception as e:
+            messagebox.showerror("Error", f"No se pudo guardar: {e}")
+
+    def cargar_usuarios(self):
+        ruta_csv = self.BASE_DIR / "usuarios.csv"
+        try:
+            self.modelo.cargar_csv(ruta_csv)
+            self.refrescar_lista_usuarios()
+        except Exception as e:
+            messagebox.showerror("Error", f"No se pudo cargar: {e}")
