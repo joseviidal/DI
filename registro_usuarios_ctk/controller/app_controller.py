@@ -14,6 +14,8 @@ class AppController:
 
         self.avatar_images = {}
 
+        self.refrescar_lista_usuarios()
+
 
     def refrescar_lista_usuarios(self):
         usuarios = self.model.listar()
