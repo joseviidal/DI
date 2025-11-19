@@ -1,7 +1,6 @@
 from model.usuario_model import GestorUsuarios
 from view.main_view import MainView
 from pathlib import Path
-import customtkinter as ctk
 
 class AppController:
     def __init__(self, master):

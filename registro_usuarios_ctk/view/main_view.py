@@ -26,19 +26,19 @@ class MainView:
         self.avatar_label = ctk.CTkLabel(self.detalles_frame, text="")
         self.avatar_label.pack(pady=10)
 
-def actualizar_lista_usuarios(self, usuarios, on_select_callback):
-    for widget in self.lista_usuarios_scrollable.winfo_children():
-        widget.destroy()
+    def actualizar_lista_usuarios(self, usuarios, on_select_callback):
+        for widget in self.lista_usuarios_scrollable.winfo_children():
+            widget.destroy()
 
-    for i, usuario in enumerate(usuarios):
-        btn = ctk.CTkButton(
-            self.lista_usuarios_scrollable,
-            text=usuario.nombre,
-            command=lambda idx=i: on_select_callback(idx)
-        )
-        btn.pack(fill="x", padx=5, pady=2)
+        for i, usuario in enumerate(usuarios):
+            btn = ctk.CTkButton(
+                self.lista_usuarios_scrollable,
+                text=usuario.nombre,
+                command=lambda idx=i: on_select_callback(idx)
+            )
+            btn.pack(fill="x", padx=5, pady=2)
 
-def mostrar_detalles_usuario(self, usuario):
-    self.label_nombre.configure(text=f"Nombre: {usuario.nombre}")
-    self.label_edad.configure(text=f"Edad: {usuario.edad}")
-    self.label_genero.configure(text=f"Género: {usuario.genero}")
+    def mostrar_detalles_usuario(self, usuario):
+        self.label_nombre.configure(text=f"Nombre: {usuario.nombre}")
+        self.label_edad.configure(text=f"Edad: {usuario.edad}")
+        self.label_genero.configure(text=f"Género: {usuario.genero}")

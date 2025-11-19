@@ -8,10 +8,14 @@ class Usuario:
 class GestorUsuarios:
     def __init__ (self):
         self._usuarios = []
+        self._cargar_datos_de_ejemplo()
 
-    def _cargar_datos_De_ejemplo(self):
+    def _cargar_datos_de_ejemplo(self):
         self._usuarios.append(Usuario("José Vidal", 20, "Masculino", "avatarJoseVidal.jpeg"))
         self._usuarios.append(Usuario("Carlitos Mendez", 35, "Masculino", "avatarCarlitosMendez.jpeg"))
 
     def listar(self):
         return self._usuarios
+
+    def obtener(self, indice):
+        return self._usuarios[indice]
